@@ -1,0 +1,157 @@
+<style>
+    .party-section {
+      background-color: #262626;
+      padding: 5rem 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .party-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 1rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    @media (min-width: 1024px) {
+      .party-container {
+        grid-template-columns: 1fr 1fr;
+        gap: 6rem;
+      }
+    }
+
+    .party-title {
+      font-size: 2rem;
+      font-weight: 400;
+      color: #fff;
+    }
+
+    @media (min-width: 640px) {
+      .party-title {
+        font-size: 2.5rem;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .party-title {
+        font-size: 3rem;
+      }
+    }
+
+    .party-highlight {
+      font-size: 1.25rem;
+      color: transparent;
+      background: linear-gradient(to right, #06b6d4, #8b5cf6);
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+
+    .party-subtext {
+      margin-top: 2rem;
+      font-size: 1.125rem;
+      color: #9ca3af;
+    }
+
+    .party-image-wrapper {
+      position: relative;
+    }
+
+    .party-blur {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 343px;
+      height: 339px;
+      filter: blur(64px);
+      z-index: 0;
+    }
+
+    .party-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    object-fit: cover;
+    aspect-ratio: 2 / 3; /* or whatever fits your image best */
+    z-index: 100;
+    border-radius: 20px
+  }
+</style>
+
+<section class="party-section">
+  <div class="party-container">
+    <div>
+      <h2 class="party-title">{{ section.settings.heading }}</h2>
+      <p class="party-highlight">{{ section.settings.subheading }}</p>
+      <p class="party-subtext">{{ section.settings.description }}</p>
+    </div>
+
+    <div class="party-image-wrapper">
+      <div class="party-blur" aria-hidden="true">
+        <svg width="343" height="339" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M158.612 289.158C68.377 300.506 12.834 390.699.684 294.077-11.467 197.455 205.537 12.391 295.772 1.043c90.236-11.347 19.532 155.318 31.683 251.94 12.151 96.622-78.607 24.828-168.843 36.175Z" fill="url(#a)" />
+          <defs>
+            <linearGradient id="a" x1="335.877" y1="-4" x2="338.499" y2="338.656" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#06b6d4" />
+              <stop offset="100%" stop-color="#8b5cf6" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <img
+        class="party-image"
+        src="{{ section.settings.image | image_url: width: 800 }}"
+        alt="{{ section.settings.image_alt | escape }}"
+        width="{{ section.settings.image.width }}"
+        height="{{ section.settings.image.height }}"
+        loading="lazy"
+      >
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Party Feature Promo",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Title",
+      "default": "Exclusive Party Experiences"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading Highlight",
+      "default": "Tel Aviv. Ibiza. Costa Rica."
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Get access to the most iconic underground parties around the world. Book your ticket and immerse yourself in unforgettable nights powered by music, people, and energy."
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Feature Image"
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Image Alt Text",
+      "default": "Party visual"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Party Promo Section",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
